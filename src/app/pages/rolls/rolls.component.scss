@@ -1,0 +1,32 @@
+@import "../../../styles.scss";
+.section-rols {
+  padding-top: 20px;
+  padding-bottom: 140px;
+  @include lg {
+    padding-bottom: 100px;
+  }
+  @include md {
+    padding-bottom: 50px;
+  }
+  @include sm {
+    padding-bottom: 30px;
+  }
+}
+
+.rols {
+  &__container {
+    max-width: 1750px;
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__menu {
+    padding-top: 58px;
+  }
+  &__empty {
+    text-align: center;
+  }
+}

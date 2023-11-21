@@ -1,0 +1,28 @@
+
+<div class="mat-wrapper mat-modal">
+  <button mat-button mat-dialog-close class="mat-modal__close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.41,12l6.3-6.29a1,1,0,1,0-1.42-1.42L12,10.59,5.71,4.29A1,1,0,0,0,4.29,5.71L10.59,12l-6.3,6.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l6.29,6.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"/></svg></button>
+      <h2 mat-dialog-title class="mat-modal__title">Нова адреса</h2>  
+   <form [formGroup]="adressForm" class="mat-modal__form" (ngSubmit)="adressUser()">
+         <mat-dialog-content class="mat-modal__content">
+          <mat-form-field appearance="outline">
+                    <input matInput placeholder="*Вкажіть тип адреси (наприклад дім,робота)"  formControlName="typeAdress" name="typeAdress" type="typeAdress" >
+                     </mat-form-field>
+                   <mat-form-field appearance="outline">
+                     <input matInput placeholder="*Введіть вулицю доставки"  formControlName="adress" name="adress" type="text" required>
+                      </mat-form-field>
+                      <div class="mat-modal__box">
+                      <mat-form-field appearance="outline">
+                        <input matInput placeholder="*№ будинку"  formControlName="entrance" type="number" name="entrance" required>
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <input matInput placeholder="*№ квартири"  formControlName="number" type="number" name="number" required>
+                      </mat-form-field>
+                    </div>
+        </mat-dialog-content>
+            <mat-dialog-actions class="mat-modal__actions" >
+                  <button type="submit" class="mat-modal__button" [disabled]="adressForm.invalid" >Зберегти</button>
+          </mat-dialog-actions>
+  </form>
+</div>
+                  
+  

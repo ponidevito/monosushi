@@ -1,0 +1,125 @@
+<section class="section-home">
+<div class="home">
+<div class="home__container">
+  <ngx-spinner 
+  color = "#fff" type="ball-fall" [fullScreen] = "true"><p style="color: white" > Loading... </p>
+</ngx-spinner>
+  <div class="home__swiper">
+    <div class="swiper-container swiper-home">
+        <div class="swiper-wrapper swiper-home__wrapper" >
+          <div class="swiper-slide swiper-home__slide" [routerLink]="['/actions/khz7pjZKBvdKsJDSx0kP']" >
+            <img src="../../../assets/images/home/den-narodzhennya-.jpg" >
+          </div>
+          <div class="swiper-slide" >
+            <img src="../../../assets/images/home/monokombo.jpg">
+          </div>
+          <div class="swiper-slide" [routerLink]="['/actions/osqBCxBGh2sOXQ1r4Ff4']">
+            <img src="../../../assets/images/home/rol-tyzhnya.jpg">
+          </div>
+          <div class="swiper-slide">
+            <img src="../../../assets/images/home/samovyviz.jpg" [routerLink]="['/actions/NYrcSsmOar3pDMzvgPpH']">
+          </div>
+          <div class="swiper-slide">
+            <img src="../../../assets/images/home/monokombo.jpg">
+          </div>
+        </div>
+        <div class="swiper-pagination pagination-swiper swiper-home__pagination">
+        </div>
+        
+      </div>
+    </div>  
+</div>
+</div>
+
+ <div class="bunner bunner-home">
+  <div class="bunner-home__container">
+    <div class="bunner-home__row">
+      <div class="bunner-home__item">
+        <div class="bunner-home__column">
+          <div class="bunner-home__image">
+            <img src="assets/images/home/delivery-img.svg" alt="img">
+          </div>
+          <a [routerLink]="[ '/delivery']" routerLinkActive="route-active" class="bunner-home__button">ЗОНИ ДОСТАВКИ</a>
+        </div>
+      </div>
+      <div class="bunner-home__item">
+        <div class="bunner-home__column">
+          <div class="bunner-home__image">
+            <img src="assets/images/home/supermen.svg" alt="img">
+          </div>
+          <div class="bunner-home__info">
+            Середній час доставки в зеленій зоні 
+            <b>00:43:00</b>
+          </div>
+        </div>
+      </div>
+      <div class="bunner-home__item">
+        <div class="bunner-home__column">
+          <div class="bunner-home__image">
+            <img src="assets/images/home/bonus.svg" alt="img">
+          </div>
+          <div class="bunner-home__info">
+            Наш графік роботи Працюємо з  
+            <b>11:00</b>
+            до
+            <b>22:30</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--  tab menu  -->
+<div class="home__container">
+  <div class="home__menu menu-rols">
+    <ul class="menu-rols__list" >
+      <li class="menu-rols__item"><a (click)="selectFilter('Всі')" [ngClass]="{'active': selectedFilter === 'Всі'}" class="menu-rols__link ">Всі</a></li>
+      <li class="menu-rols__item"><a (click)="selectFilter('Філадельфія')" [ngClass]="{'active': selectedFilter === 'Філадельфія'}" class="menu-rols__link">Філадельфія</a></li>
+      <li class="menu-rols__item"><a (click)="selectFilter('Каліфорнія')" [ngClass]="{'active': selectedFilter === 'Каліфорнія'}" class="menu-rols__link">Каліфорнія</a></li>
+      <li class="menu-rols__item"><a (click)="selectFilter('Запечений')" [ngClass]="{'active': selectedFilter === 'Запечений'}" class="menu-rols__link">Запечені</a></li>
+      <li class="menu-rols__item"><a (click)="selectFilter('Фірмовий')" [ngClass]="{'active': selectedFilter === 'Фірмовий'}" class="menu-rols__link">Фірмові</a></li>
+      <li class="menu-rols__item"><a (click)="selectFilter('Преміум')" [ngClass]="{'active': selectedFilter === 'Преміум'}" class="menu-rols__link">Преміум</a></li>
+      <li class="menu-rols__item"><a (click)="selectFilter('Макі')" [ngClass]="{'active': selectedFilter === 'Макі'}" class="menu-rols__link">Макі</a></li>
+  </ul>
+</div>
+
+<!--  sushi list  -->
+<div class="home__row row-sushi">
+  <ng-container *ngFor="let product of filteredData">
+    <ng-container *ngIf="product.category.path === 'rolls'">
+
+  <div  class="home__item row-sushi__item">
+      <div href="#" class="home__column row-sushi__column">
+          <div class="home__picture  row-sushi__picture">
+              <img [src]="product.image" [routerLink]="[ '/product/'+product.category.path, product.id ]" alt="img" class="home__image  row-sushi__image">
+          </div>
+          <div class="home__box  row-sushi__box">
+          <h2 class="home__name  row-sushi__name" [routerLink]="[ '/product/'+product.category.path, product.id ]" >{{product.name}}</h2>
+          <div class="home__description  row-sushi__description">
+              <p class="home__ingredients  row-sushi__ingredients">{{product.ingredients}}</p>
+          <div class="row-sushi__weight">{{product.weight}}г</div>
+
+
+          </div>
+      </div>
+      <div class="home__pricing  row-sushi__pricing" >
+          <div class="home__price  row-sushi__price">{{product.price * product.count}}<span>грн</span></div>
+          <div class="number-input input-number">
+            <button  (click)="productCount(product, false)" class="input-number__button input-number__minus" type="button">-</button>
+            <input type="number" class="input-number__inputNumber" min="1" [value]="product.count"  readonly>
+            <button (click)="productCount(product ,true)" class="input-number__button input-number__plus" type="button">+</button>
+          </div> 
+          <a  class="home__order  row-sushi__order" (click)="addToBasket(product)">ЗАМОВИТИ</a>
+      </div>
+    </div>
+  </div>
+    </ng-container>
+</ng-container>
+</div>
+<ng-container *ngIf="!goodsArray|| goodsArray.length === 0">
+  <div class=" home__empty table-global__empty">Немає доданих товарів</div>
+</ng-container>
+</div>
+</section>

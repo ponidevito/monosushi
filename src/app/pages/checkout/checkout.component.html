@@ -1,0 +1,171 @@
+<section class="section-checkout checkout">
+    <div class="checkout_container">
+      <ngx-spinner 
+      color = "#fff" type="ball-fall" [fullScreen] = "true"><p style="color: white" > Loading... </p>
+    </ngx-spinner>
+        <div class="checkout__top top-title">
+            <h1 class="checkout__title title" *ngIf="!orderService.basket || orderService.basket.length > 0">Оформити замовлення</h1>
+        </div>
+        <div class="checkout__items">
+            <div class="checkout__busket">
+                <ng-container *ngFor="let product of orderService.basket">
+                <div class="checkout__products">
+                    <img [src]="product.image" [routerLink]="[ '/rolls-details', product.id ]"  alt="image" class="checkout__image">
+                      <div class="checkout__count">
+                        <h5 class="checkout__title" [routerLink]="[ '/rolls-details', product.id ]">{{product.name}}</h5>
+                        <div class="checkout__box">
+                        <div class="number-input input-number">
+                          <button  (click)="productCount(product, false)" class="input-number__button input-number__minus" type="button">-</button>
+                          <input type="number" class="input-number__inputNumber" min="1" [value]="product.count" readonly >
+                          <button (click)="productCount(product ,true)" class="input-number__button input-number__plus" type="button">+</button>
+                        </div> 
+                        <div class="checkout__summa">{{ product.price * product.count }} <span>грн</span></div>
+                        <button class="checkout__remove"  (click)="removeProduct(product, $event)"><div class="checkout__trash"></div></button>
+                      </div>
+                      </div>
+            </div>
+        </ng-container>
+        <div class="checkout__total" *ngIf="!orderService.basket || orderService.basket.length > 0"><span>До оплати: </span>{{ getTotalSum() }} <span> грн </span></div>
+        <ng-container *ngIf="!orderService.basket || orderService.basket.length === 0">
+            <div class="checkout__empty-box">
+            <img class="checkout__empty-image" src="assets/images/header/cart-empty-img.svg" alt="img">
+            <h3 class="checkout__empty">Кошик порожній</h3>
+            <a  (click)="navigateToCatalog()"  class="checkout__empty-btn">ПЕРЕЙТИ ДО КАТАЛОГУ</a>
+          </div>
+          </ng-container>
+            </div>
+
+            <form class="checkout__formFood" [formGroup]="foodForm"  >
+              <div class="checkout__box ">
+                <div class="checkout__number-box"><b>1</b></div>
+                <h4 class="checkout__title-box">*Оберіть кількість приборів</h4>
+            </div>
+            <div class="checkout__food-container">
+              <mat-form-field style="margin-bottom: -1.25em" class="checkout__food-select"  appearance="outline">
+                  <mat-select  formControlName="selectedValue" name="food">
+                  <mat-option  *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field  style="margin-bottom: -1.25em" class="checkout__food-select" appearance="outline">
+                  <mat-select  formControlName="selectedHolders" name="holders">
+                  <mat-option  *ngFor="let holder of holders" [value]="holder.value" [disabled]="holder.disabled">
+                    {{holder.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- option pay -->
+            <div class="checkout__box ">
+              <div class="checkout__number-box"><b>2</b></div>
+              <h4 class="checkout__title-box">Спосіб оплати</h4>
+          </div>
+          <div class="checkout__pay">
+            <label for="cash" class="checkout__checkbox">
+              <input type="radio" id="cash" formControlName="cash"  name="cash" value="cash">
+              <span>Оплата готівкою</span>
+            </label>
+            <label for="non-cash" class="checkout__checkbox">
+              <input type="radio" id="non-cash" formControlName="cash" name="cash" value="non-cash">
+              <span>Безготівкова оплата</span>
+            </label>
+          </div>
+             <!-- delivery -->
+             <div class="checkout__box ">
+                   <div class="checkout__number-box"><b>3</b></div>
+                   <h4 class="checkout__title-box">Спосіб доставки</h4>
+             </div>
+             <div class="checkout__delivery">
+              <label for="delivery" class="checkout__checkbox">
+                <input type="radio" id="delivery" formControlName="delivery" name="delivery" value="delivery" (change)="enableValidation()" (click)="enableValidation();openAdress()">
+                <span>Доставка (У зв’язку із відключенням світла, якщо ліфт не працює кур’єр піднімається тільки до п’ятого поверху. Дякуємо за розуміння)</span>
+              </label>
+              <label for="self-delivery" class="checkout__checkbox">
+                <input type="radio" id="self-delivery" formControlName="delivery"   (change)="disableValidation()" name="delivery" value="self-delivery" (click)="openPickup()">
+                <span>Самовивіз
+                </span>
+              </label>
+              <label for="in-advance" class="checkout__checkbox">
+                <input type="checkbox" id="in-advance" formControlName="inAdvance" name="inAdvance" value="in-advance" (click)="opendate()">
+                <span>Заздалегідь</span>
+              </label>
+
+            </div>
+            <div class="checkout__adress">
+              <div class="checkout__input-box">
+                <input type="text" class="checkout__input" formControlName="firstName" name="firstName"  placeholder="Ваше ім'я*"  >
+                <input type="text" class="checkout__input" formControlName="phone"  mask="(000) 000-00-00" prefix="+38"   >
+
+              </div>
+              <div class="checkout__input-box box-hidden ">
+                <div class="box-hidden__first"  [class.show]="inAdvance">
+                <mat-form-field style="margin-bottom: -1.25em" class="example-full-width checkout__input-date" appearance="outline">
+                  <mat-label>Дата доставки</mat-label>
+                  <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker"  formControlName="date" >
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker [max]="maxDate"></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field style="margin-bottom: -1.25em" class="checkout__food-select"  appearance="outline">
+                  <mat-select formControlName="selectedInterval" name="interval">
+                  <mat-option  *ngFor="let time of times"  [value]="time.value" >
+                    {{time.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field> 
+            </div>
+            <div class="box-hidden__second"  [class.show]="pickup">
+               <mat-form-field  style="margin-bottom: -1.25em" class="checkout__food-select"  appearance="outline">
+                <mat-select formControlName="selectedPickup" name="pickup">
+                <mat-option  *ngFor="let pickup of pickups"  [value]="pickup.value" [disabled]="pickup.disabled">
+                  {{pickup.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>      
+          </div>
+              </div>
+              <div class="box-input" [class.hide]="!adress">
+              <div class="checkout__input-box">
+                <input type="text" class="checkout__input"  placeholder="*Вулиця" formControlName="adress" name="adress"  >
+                <input type="number" class="checkout__input" placeholder="Номер будинку*"  formControlName="number" name="number"   >
+              </div>
+              <div class="checkout__input-box">
+                <input type="number" class="checkout__input" placeholder="Під'їзд" formControlName="entrance" name="entrance"  >
+                <input type="text" class="checkout__input" placeholder="Квартира" formControlName="apartment" name="apartment"   >
+              </div>
+            </div>
+            </div>
+            <hr>
+            <div class="checkout__comments">
+              <label for="callBack" class="checkout__checkbox">
+                <input type="checkbox" id="callBack" formControlName="callBack"  name="callBack" value="callBack">
+                <span>Зателефонуйте мені для уточнення деталей</span>
+              </label>
+              <label for="addComment" class="checkout__checkbox">
+                <input type="checkbox" id="addComment"  name="addComment" value="addComment" (click)="openAddComment()">
+                <span>Додати коментар</span>
+                <textarea name="addComment" class="checkout__addComment"formControlName="addComment" placeholder="Ваш коментар" [class.show]="addComment"></textarea>              
+              </label>
+              <label for="addCommentKitchen" class="checkout__checkbox">
+                <input type="checkbox" id="addCommentKitchen"  name="addCommentKitchen" value="addCommentKitchen" (click)="openAddCommentKitchen()">
+                <span>Додати коментар для кухні</span>
+                <textarea name="addComment" class="checkout__addComment" formControlName="addCommentKitchen" placeholder="Ваш коментар для кухні" [class.show]="addCommentKitchen"></textarea>              
+
+              </label> 
+            </div>
+
+            </form>
+           <div class="checkout__map map-checkout">
+            <div class="map-checkout__map">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4325.453004906748!2d24.01251778183582!3d49.8625643484255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473addae674cfd1d%3A0xa8962158c408d4fc!2z0L_RgNC-0YHQv9C10LrRgiDQkifRj9GH0LXRgdC70LDQstCwINCn0L7RgNC90L7QstC-0LvQsCwgOTUsINCb0YzQstGW0LIsINCb0YzQstGW0LLRgdGM0LrQsCDQvtCx0LvQsNGB0YLRjCwgNzkwMDA!5e0!3m2!1suk!2sua!4v1682593399022!5m2!1suk!2sua" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+              </iframe> 
+            </div>
+           </div>  
+           <div class="checkout__actions">
+            <button type="submit" (click)="addForm()" class="checkout__btn" [disabled]="!isCheckboxSelected && foodForm.invalid">Оформити замовлення</button>
+
+          </div>  
+           </div>
+    </div>
+</section>
+

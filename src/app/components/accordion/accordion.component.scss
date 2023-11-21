@@ -1,0 +1,98 @@
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import "../../../styles.scss";
+
+.accordion {
+  &__container {
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+    @include lg {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+    @include sm {
+    padding: 0;
+    }
+  }
+  &__text {
+    font-size: 18px;
+    line-height: 1.5em;
+    color: #5a5a5a;
+    &:not(:last-child) {
+      margin-bottom: 20px;
+      @include sm{
+        margin-top: 20px;
+        font-size: 16px;
+      }
+    }
+  }
+  &__list {
+    counter-reset: item;
+    margin-left: 0;
+    padding-left: 0;
+    line-height: 1.47em;
+  }
+  &__list-item {
+    position: relative;
+    padding-left: 34px;
+    font-size: 18px;
+    line-height: 1.5em;
+    color: #5a5a5a;
+    &:not(:last-child) {
+      margin-bottom: 23px;
+    }
+    &::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      counter-increment: item;
+      content: "0" counter(item);
+      font-size: 12px;
+      line-height: 1.47em;
+      color: #252525;
+      font-weight: bold;
+      margin-right: 17px;
+    }
+  }
+}
+.mat-expansion-panel-header.mat-expanded {
+  height: 50px;
+}
+.mat-expansion-panel {
+  &:first-child {
+    border-top: 1px solid #dcdcdc;
+  }
+  border-bottom: 1px solid #dcdcdc;
+}
+.mat-expansion-panel-header {
+  padding: 0px;
+  height: 95px;
+}
+.mat-expansion-panel-header-title {
+  position: relative;
+  font-size: 20px;
+  line-height: 1.2em;
+  font-weight: 700;
+  color: #5a5a5a;
+  padding: 32px 20px 37px 0;
+  cursor: pointer;
+  -webkit-transition: 0.35s;
+  transition: 0.35s;
+  &:hover {
+    color: #252525;
+  }
+  @include sm{
+    font-size: 17px;
+  }
+}
+.mat-expansion-panel-spacing {
+  margin: 0px;
+}
+::ng-deep .mat-expansion-panel-header .mat-expansion-indicator {
+  padding: 5px;
+}
+::ng-deep .mat-expansion-panel-content .mat-expansion-panel-body {
+  padding: 0 30px 25px 0;
+}
+.mat-expansion-panel {
+  box-shadow: none !important;
+}

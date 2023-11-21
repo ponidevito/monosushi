@@ -1,0 +1,17 @@
+
+<div class="mat-wrapper">
+<h2 mat-dialog-title>МИ ЗАТЕЛЕФОНУЄМО</h2>  
+<button mat-button mat-dialog-close class="mat-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.41,12l6.3-6.29a1,1,0,1,0-1.42-1.42L12,10.59,5.71,4.29A1,1,0,0,0,4.29,5.71L10.59,12l-6.3,6.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l6.29,6.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"/></svg></button>
+<p mat-dialog-subtitle class="mat-dialog-subtitle">Залиште номер телефону і наші менеджери зв’яжуться з вами</p>
+<mat-dialog-content class="mat-dialog-content">
+  <mat-form-field appearance="outline">
+    <input matInput placeholder="Ім'я" [(ngModel)]="name">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <input matInput placeholder="Номер телефону" mask="(000) 000-00-00" prefix="+38" [(ngModel)]="phone">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button class="mat-dialog-subtitle-send" [mat-dialog-close]="{name: name, phone: phone}">Надіслати</button>
+</mat-dialog-actions>
+</div>

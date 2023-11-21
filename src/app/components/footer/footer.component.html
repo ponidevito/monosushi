@@ -1,0 +1,87 @@
+<footer class="footer">
+    <div class="footer__main main-footer">
+        <div class="main-footer__container">
+            <div class="main-footer__items">
+            <a href="#" class="main-footer__logo"><img src="assets/images/footer/logo.svg" alt="logo"></a>
+            <div class="main-footer__social social">
+                <div class="social__body">
+                    <a href="#" class="social__item"><img src="assets/images/footer/facebook-icon.svg" alt="icon"></a>
+                    <a href="#" class="social__item"><img src="assets/images/footer/instagram-icon.svg" alt="icon"></a>
+                    
+                </div>
+            </div>
+            <ul class="main-footer__list">
+                <li class="main-footer__item">
+                    <a [routerLink]="[ '/actions' ]" routerLinkActive="route-active" class="main-footer__link">Акції</a>
+                </li>
+                <li class="main-footer__item">
+                    <a [routerLink]="[ '/about-us']" routerLinkActive="route-active" class="main-footer__link">Про нас</a>
+                </li>
+                <li class="main-footer__item">
+                    <a [routerLink]="[ '/oferta']" routerLinkActive="route-active" class="main-footer__link">Оферта</a>
+                </li>
+            </ul>
+            <div class="main-footer__info">
+                <div class="main-footer__adress">
+                    <div class="main-footer__label">Точки самовивозу</div>
+                    <p class="main-footer__text">вул. Володимира Великого, 10в
+                    </p>
+                    <p class="main-footer__text">вул. Чорновола, 95
+                    </p>
+                </div>
+                <div class="main-footer__phone">
+                    <div class="main-footer__label">Оформити замовлення</div>
+                    <a href="tel:(097) 878 08 37" class="main-footer__number">(097) 878 08 37</a>
+                </div>
+                <div class="main-footer__time">
+                    <div class="main-footer__label">Графік роботи</div>
+                    <p class="main-footer__text">працюємо з 11:00 до 22:30
+                    </p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="footer__bottom bottom-footer">
+        <div class="bottom-footer__container">
+            <div class="bottom-footer__items">
+                <div class="bottom-footer__copy">© 2023 Monosushi</div>
+                <div class="bottom-footer__cards cards">
+                    <div class="cards__item"><img src="assets/images/footer/pay-card-1.svg" alt="card"></div>
+                    <div class="cards__item"><img src="assets/images/footer/pay-card-2.svg" alt="card"></div>
+                    <div class="cards__item"><img src="assets/images/footer/pay-card-3.svg" alt="card"></div>
+                </div>
+                <div class="bottom-footer__social social">
+                    <p class="social__text">Слідкуйте за нами</p>
+                    <div class="social__body">
+                        <a href="#" class="social__item"><img src="assets/images/footer/facebook-icon.svg" alt="icon"></a>
+                        <a href="#" class="social__item"><img src="assets/images/footer/instagram-icon.svg" alt="icon"></a>
+                        
+                    </div>
+                </div>
+                <div class="bottom-footer__develope">
+                    <a href="" class="bottom-footer__link">Створення сайтів</a>
+                    <img src="assets/images/footer/redstone-icon-black.svg" alt="image" class="bottom-footer__image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer__nav nav-menu">
+     
+            <ul class="nav-menu__list">
+                <li class="nav-menu__item">
+                    <a [routerLink]="[ '/actions' ]" routerLinkActive="route-active" class="nav-menu__link"><img src="assets/images/header/actions.svg" alt="icon" class="nav-menu__image"><span>Акції</span></a>
+                  </li>
+                  <li class="nav-menu__item">
+                    <a [routerLink]="[ '/product/rolls' ]" routerLinkActive="route-active" class="nav-menu__link"><img src="assets/images/header/rolls.svg" alt="icon" class="nav-menu__image"><span>Роли</span></a>
+                  </li>
+                  <li class="nav-menu__item">
+                    <a [routerLink]="[ '/product/seti' ]" routerLinkActive="route-active" class="nav-menu__link"><img src="assets/images/header/sets.svg" alt="icon" class="nav-menu__image"><span>Сети</span></a>
+                  </li>
+                  <li class="nav-menu__item">
+                    <a [routerLink]="[ '/product/drinks' ]" routerLinkActive="route-active" class="nav-menu__link"><img src="assets/images/header/drinks.svg" alt="icon" class="nav-menu__image"><span>Напої</span></a>
+                  </li>
+            </ul>
+       
+    </div>
+</footer>

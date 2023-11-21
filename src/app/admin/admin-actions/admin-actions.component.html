@@ -1,0 +1,80 @@
+<div class="admin-action action">
+    <div class="action__container">
+       <div class="action__items">
+            <div class="action__actions">
+                <!--  button add action -->
+                <button type="button" class="action__button button-add" (click)="openAction()">
+                    ДОДАТИ АКЦІЮ
+                </button>
+            </div>
+            <!--  form actions -->
+            <form class="action-form form-action form-admin" [class.active]="showForm" [formGroup]="actionForm" (ngSubmit)="addActions()" *ngIf="showForm">
+                <div class="form-action__box form-admin__box">
+                    <input type="text" formControlName="name" name="name" class="form-action__input form-admin__input" placeholder="*Назва">
+                    <input type="text"  formControlName="title" name="title" class="form-action__input form-admin__input" placeholder="*Заголовок">
+                  </div>
+                  <textarea class="form-action__textarea" formControlName="description" placeholder="*Опис"></textarea>
+                  <div class="form-action__file form-admin__file">
+                    <div class="form-action__body form-admin__body">
+                    <input type="file" class="form-action__fileBtn form-admin__fileBtn" id="file"[disabled]="isUploaded" (change)="upload($event)" >
+                    <!-- progress bar -->
+                    <div class="animated-progress progress-lightred">
+                        <span data-progress="100" [ngStyle]="{ width: uploadPercent + '%' }"></span>
+                      </div>
+                      <!-- if uploaded image -->
+                      <ng-container  *ngIf="isUploaded">
+                        <button type="button" class="form-action__btnDelete btn-delete-image" (click)="deleteImage()">Delete</button>
+                    </ng-container>
+                    </div>
+                    <ng-container *ngIf="isUploaded">
+                        <img [src]="valueByControl('image')" width="265px" height="auto" alt="img">
+                    </ng-container>
+                  </div>
+                  <button type="submit" class="form-action__btnSave button-save"[disabled]="actionForm.invalid" > {{ editStatus ? 'Зберегти' : 'Додати' }}</button>
+            </form>
+
+            <!-- table actions desktop -->
+             <table class="table table-action table-global"> 
+                    <thead>
+                        <tr class="tr-top  table-global__tr-top">
+                        <th>Дата</th>
+                        <th>Назва</th>
+                        <th>Заголовок</th>
+                        <th>Опис</th>
+                        <th>Картинка</th>
+                        <th>Дії</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="actions && actions.length > 0">
+                        <ng-container *ngFor="let action of actions">
+                        <tr >
+                            <td>{{action.date}}</td>
+                            <td>{{action.name | capitalize | slice:0:15}}
+                                <span *ngIf="action.name && action.name.length > 15">...</span>
+                            </td>
+                            <td>{{action.title | capitalize | slice:0:20}}
+                                <span *ngIf="action.title && action.title.length > 20">...</span>
+
+                            </td>
+                            <td>{{action.description | capitalize | slice:0:25}}
+                                <span *ngIf="action.description && action.description.length > 25">...</span>
+                            </td>
+                            <td><img [src]="action.image" alt="" height="50px" width="100px"></td>
+                            <td ><div class="table-action__actions  table-global__actions">
+                                 <button type="button" class="table-action__button  table-global__button"  (click)="editAction(action);openEdit()" >Редагувати</button>
+                                 <button class="table-action__button table-global__button" (click)="deleteAction(action)" >Видалити</button>
+                                 </div>
+                            </td>
+                        </tr>
+                    </ng-container> 
+                </ng-container>
+                <ng-container *ngIf="!actions || actions.length === 0">
+                    <div class="table-action__empty table-global__empty">Немає доданих акцій</div>
+                  </ng-container>
+                    </tbody>
+             </table>
+
+       </div>
+    </div>
+</div>

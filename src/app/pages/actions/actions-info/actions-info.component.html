@@ -1,0 +1,23 @@
+<section class="actions-info">
+    <div class="actions-info__container">
+      <ngx-spinner 
+      color = "#fff" type="ball-fall" [fullScreen] = "true"><p style="color: white" > Loading... </p>
+    </ngx-spinner>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb__list">
+              <li class="breadcrumb__item" *ngFor="let item of breadcrumbItems; let last = last" [class.active]="last">
+                <a class="breadcrumb__link" *ngIf="!last" [routerLink]="item.path">{{ item.label }}</a>
+                <span *ngIf="last && action">{{ action.title | capitalize }}</span>
+              </li>
+            </ol>
+          </nav> 
+          <ng-container *ngIf="action">
+                  
+        <div class="actions-info__banner"><h2 class="actions-info__title" >{{action.title | capitalize}}</h2>
+        </div>
+        <ul class="actions-info__list">
+            <li class="actions-info__item" *ngIf="action">{{action.description | capitalize}}</li>
+        </ul>
+      </ng-container>
+    </div>
+</section>

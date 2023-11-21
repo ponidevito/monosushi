@@ -1,0 +1,29 @@
+ <section class="section-actions actions"  >
+    <div class="actions__container">
+        <ngx-spinner 
+          color = "#fff" type="ball-fall" [fullScreen] = "true"><p style="color: white" > Loading... </p>
+        </ngx-spinner>
+
+        <div class="actions__top top-title">
+            <h1 class="actions__title title">Акції</h1>
+        </div>   
+     <div class="actions__items"  >
+        <div class="actions__item" *ngFor="let action of actionsArray">
+            <div  class="actions__column">
+                    <a [routerLink]="[ '/actions', action.id ]" class="actions__content">
+            <div class="actions__picture">
+                <img [src]="action.image"   height="auto" alt="img" class="actions__image">
+            </div>
+            <h2 class="actions__name">{{action.name}}</h2>
+        </a>
+            <hr class="actions__line">
+            <div class="actions__buttons">
+               <a  [routerLink]="[ '/actions', action.id ]"  class="actions__link btn-link" >ДІЗНАТИСЬ БІЛЬШЕ</a>
+            </div>
+        </div>
+        </div>
+     </div>
+    </div>
+</section>
+ 
+

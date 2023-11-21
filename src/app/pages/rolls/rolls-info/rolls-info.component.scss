@@ -1,0 +1,113 @@
+@import "../../../../styles.scss";
+.rolls-info {
+  padding-top: 50px;
+  padding-bottom: 100px;
+  @include lg {
+    padding-bottom: 50px;
+  }
+  @include md {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  &__container {
+    position: relative;
+    max-width: 1750px;
+  }
+
+  &__items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    @include md {
+      flex-wrap: wrap;
+    }
+  }
+
+  &__item {
+    flex: 0 1 33.3333%;
+    display: flex;
+    justify-content: center;
+    &:last-child {
+      justify-content: flex-start;
+      @include md {
+        justify-content: center;
+      }
+    }
+    @include md {
+      flex: 1 1 100%;
+    }
+  }
+
+  &__image {
+    height: 400px;
+    max-width: 400px;
+    width: 100%;
+    object-fit: contain;
+    @include lg {
+      width: unset;
+    }
+    @include md {
+      height: auto;
+    }
+    @include sm {
+      width: 100%;
+    }
+  }
+
+  &__content {
+    max-width: 400px;
+  }
+
+  &__title {
+    color: #252525;
+    font-weight: bold;
+    font-size: 42px;
+    line-height: 1.2em;
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__ingredients {
+    span {
+      color: #b5d8f7;
+      font-weight: bold;
+    }
+    font-size: 18px;
+    line-height: 1.5em;
+    color: #5a5a5a;
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+
+  &__weight {
+    span {
+      color: #b5d8f7;
+      font-weight: bold;
+    }
+    font-size: 18px;
+    line-height: 1.5em;
+    color: #5a5a5a;
+  }
+
+  &__order {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &__price {
+    font-weight: bold;
+    color: #252525;
+    width: 84px;
+    span {
+      color: #252525;
+      font-weight: 400;
+      font-size: 20px;
+    }
+  }
+}

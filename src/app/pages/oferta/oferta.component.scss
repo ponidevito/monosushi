@@ -1,0 +1,61 @@
+@import "../../../styles.scss";
+.section-oferta {
+  padding-top: 20px;
+  padding-bottom: 128px;
+  @include lg {
+    padding-bottom: 50px;
+  }
+  @include sm {
+    padding-bottom: 30px;
+  }
+}
+.oferta {
+  &__container {
+    max-width: 1020px;
+  }
+
+  &__top {
+    &:not(:last-child) {
+      margin-bottom: 40px;
+      @include md {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+ 
+
+  &__title-text {
+    font-size: 42px;
+    line-height: 1.2em;
+    font-weight: bold;
+    color: #252525;
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+    @include lg {
+      font-size: 35px;
+    }
+    @include sm {
+      font-size: 30px;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    color: #5a5a5a;
+    font-size: 18px;
+    line-height: 1.5em;
+    &:not(:last-child) {
+      margin-bottom: 27px;
+    }
+    strong {
+      font-weight: bold;
+      color: #252525;
+    }
+    @include md {
+      font-size: 16px;
+    }
+  }
+}

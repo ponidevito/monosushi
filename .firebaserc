@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "sushimono-31f19": {
+      "hosting": {
+        "les08": [
+          "sushimono-31f19"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "sushimono-31f19"
+  }
+}

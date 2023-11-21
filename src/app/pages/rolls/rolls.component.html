@@ -1,0 +1,58 @@
+<section class="section-rols rols">
+    <div class="rols__container">
+        <!-- spinner -->
+        <ngx-spinner 
+        color = "#fff" type="ball-fall" [fullScreen] = "true"><p style="color: white" > Loading... </p>
+      </ngx-spinner>
+        <div class="rols__top top-title" >
+            <h1 class="rols__title title" >{{categoryName==='drinks' ? 'Напої' :categoryName==='rolls' ? 'Роли' :categoryName==='seti' ? 'Сети' :categoryName==='souces' ? 'Соуси' : 'Продукти'}}</h1>
+        </div> 
+        <div class="rols__items">
+            <div class="rols__menu menu-rols" *ngIf="categoryName==='rolls'" >
+                <ul class="menu-rols__list" >
+                    <li class="menu-rols__item"><a (click)="selectFilter('Всі')" [ngClass]="{'active': selectedFilter === 'Всі'}" class="menu-rols__link ">Всі</a></li>
+                    <li class="menu-rols__item"><a (click)="selectFilter('Філадельфія')" [ngClass]="{'active': selectedFilter === 'Філадельфія'}" class="menu-rols__link">Філадельфія</a></li>
+                    <li class="menu-rols__item"><a (click)="selectFilter('Каліфорнія')" [ngClass]="{'active': selectedFilter === 'Каліфорнія'}" class="menu-rols__link">Каліфорнія</a></li>
+                    <li class="menu-rols__item"><a (click)="selectFilter('Запечений')" [ngClass]="{'active': selectedFilter === 'Запечений'}" class="menu-rols__link">Запечені</a></li>
+                    <li class="menu-rols__item"><a (click)="selectFilter('Фірмовий')" [ngClass]="{'active': selectedFilter === 'Фірмовий'}" class="menu-rols__link">Фірмові</a></li>
+                    <li class="menu-rols__item"><a (click)="selectFilter('Преміум')" [ngClass]="{'active': selectedFilter === 'Преміум'}" class="menu-rols__link">Преміум</a></li>
+                    <li class="menu-rols__item"><a (click)="selectFilter('Макі')" [ngClass]="{'active': selectedFilter === 'Макі'}" class="menu-rols__link">Макі</a></li>
+                </ul>
+            </div>
+            <ng-container >
+              
+            <div class="rols__row row-sushi">
+                <ng-container *ngFor="let product of  filteredData">
+                <div class="rols__item row-sushi__item">
+                    <a  class="rols__column row-sushi__column">
+                        <div class="rols__picture  row-sushi__picture">
+                            <img [src]="product.image"  [routerLink]="[ '/product/'+product.category.path, product.id ]" alt="img" class="rols__image  row-sushi__image">
+                        </div>
+                        <div class="rols__box  row-sushi__box">
+                        <h2 [routerLink]="[ '/product/'+product.category.path, product.id ]" class="rols__name  row-sushi__name">{{product.name | capitalize }}</h2>
+                        <div class="rols__description  row-sushi__description">
+                            <p class="rols__ingredients  row-sushi__ingredients">{{product.ingredients | capitalize}}</p>
+                            <div class="rols__weight  row-sushi__weight" >{{product.category.path === 'drinks' ? product.weight + ' л' : product.category.path === 'souces' ? product.weight + ' мл' : product.weight + ' г'}}</div>
+                        </div>                      
+                    </div>
+                    <div class="rols__pricing  row-sushi__pricing">
+                        <div class="rols__price  row-sushi__price">{{product.price * product.count}}<span>грн</span></div>
+                          <div class="number-input input-number">
+                            <button  (click)="productCount(product, false)" class="input-number__button input-number__minus" type="button">-</button>
+                            <input type="number" class="input-number__inputNumber" min="1" [value]="product.count" readonly >
+                            <button (click)="productCount(product ,true)" class="input-number__button input-number__plus" type="button">+</button>
+                          </div> 
+                        <a  class="rols__order  row-sushi__order" (click)="addToBasket(product)">ЗАМОВИТИ</a>
+                    </div>
+                    </a>
+                </div>
+            </ng-container>
+            </div>
+        </ng-container>
+        <!-- <ng-container *ngIf="!goodsArray|| goodsArray.length === 0">
+            <div class=" rols__empty table-global__empty">Немає доданих товарів</div>
+          </ng-container> -->
+        </div>
+    </div>
+</section>
+
