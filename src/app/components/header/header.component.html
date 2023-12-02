@@ -1,160 +1,155 @@
 <header class="header">
-    <div class="header__container">
-        <div class="header__items">
-           <a [routerLink]="[ '/home' ]" class="header__logo"><img src="assets/images/header/logo.svg" alt="logo"></a>
-            <div class="header__menu menu">
-                <nav class="menu__body">
-                    <ul class="menu__list">
-                      <li class="menu__item">
-                        <a  [routerLink]="[ '/actions' ]" routerLinkActive="route-active" class="menu__link"><img src="assets/images/header/actions.svg" alt="icon" class="menu__image"><span>Акції</span></a>
-                      </li>
-                      <li class="menu__item">
-                        <a [routerLink]="[ '/product/rolls' ]" routerLinkActive="route-active" class="menu__link"><img src="assets/images/header/rolls.svg" alt="icon" class="menu__image"><span>Роли</span></a>
-                      </li>
-                      <li class="menu__item">
-                        <a [routerLink]="[ '/product/seti' ]" routerLinkActive="route-active" class="menu__link"><img src="assets/images/header/sets.svg" alt="icon" class="menu__image"><span>Сети</span></a>
-                      </li>
-                      <li class="menu__item">
-                        <a [routerLink]="[ '/product/drinks' ]" routerLinkActive="route-active" class="menu__link"><img src="assets/images/header/drinks.svg" alt="icon" class="menu__image"><span>Напої</span></a>
-                      </li>
-                      <li class="menu__item">
-                        <a [routerLink]="[ '/product/souces' ]" routerLinkActive="route-active" class="menu__link"><img src="assets/images/header/souces.svg" alt="icon" class="menu__image"><span>Соуси</span></a>
-                      </li>
-                   </ul>
-                  </nav>
-            </div>
-            <div class="effect"  (click)="burger()" (clickOutside)="closeBlock()">
-              <div class="menu__icon" [class._active]="show">
-                <span class="span"></span>
-                <div class="menu-header__wrapper"[class.show]="show">
-                  <nav>
-                    <ul class="menu-header__nav">
-                      <li class="menu-header__nav-item">
-                        <a [routerLink]="[ '/product/souces' ]" routerLinkActive="route-active" class="menu-header__nav-link"><img src="assets/images/header/souces.svg" alt="icon" class="menu-header__image"><div class="souces">Соуси</div></a>
-                      </li>
-                    </ul>
-                    <ul class="menu-header__list" >
-                      <li class="menu-header__item"><a [routerLink]="[ '/delivery']" routerLinkActive="route-active" class="menu-header__link">Доставка та оплата</a></li>
-                      <li class="menu-header__item"><a [routerLink]="[ '/about-us']" routerLinkActive="route-active" class="menu-header__link">Про нас</a></li>
-                      <li class="menu-header__item"><a [routerLink]="[ '/actions' ]" routerLinkActive="route-active" class="menu-header__link">Акції</a></li>
-                    </ul>
-                    <ul class="menu-header__info">
-                      <a  href="tel:0978780837" class="menu-header__phone">(097) 878 08 37</a>
-                      <div class="menu-header__time">
-                        Працюємо з 
-                        <b>11:00</b>
-                        до
-                        <b>22:30</b>
-                      </div>
-                    </ul>
-                    <div class="menu-header__call">
-                      <button class="menu-header__btn" (click)="openDialog()">
-                        <img src="assets/images/header/phone.svg" alt="phone">
-                        <div class="menu-header__text">МИ ЗАТЕЛЕФОНУЄМО</div>
-                      </button>
-                    </div>
-                 </nav>
-                </div>
-              </div>
-            </div>
-            <!-- phone -->
-            <div class="header__call">
-              <button class="header__btn" (click)="openDialog()">
-                <img src="assets/images/header/phone.svg" alt="phone">
-                <span>МИ ЗАТЕЛЕФОНУЄМО</span>
-              </button>
-            </div>
-            <div class="header__info">
-              <a class="header__phone" href="tel:0978780837">(097) 878 08 37</a>
-              <div class="header__time">
-                Працюємо з 
-                <b>11:00</b>
-                    до
-                <b>22:30</b>
-              </div>
-            </div>
-            
-            <!-- login -->
-            <div class="header__userGuest" (click)="openModalLogin()" *ngIf="!isLogin">
-              <a class="header__admin"><img src="assets/images/header/user.svg" alt="user"></a>
-            </div>
-            <div class="header__user" *ngIf="isLogin" >
-              <mat-icon class="header-mat"  *ngIf="userRole==='ADMIN'" [routerLink]="[ '/'+loginUrl ]">home</mat-icon> 
-              <ng-container *ngIf="userRole === 'USER'">
-              <mat-icon class="header-mat"  [matMenuTriggerFor]="menu">home</mat-icon>
-              <mat-menu #menu="matMenu"  class="header__user-matMenu" >
-                <nav class="header__user-nav">
-                  <ul class="menu-header__list-user">
-                    <li class="menu-header__item"><a [routerLink]="['/my-cabinet/user']" class="menu-header__link">Особистий кабінет</a></li>
-                    <li class="menu-header__item"><a [routerLink]="['/my-cabinet/order-history']"  class="menu-header__link">Історія замовлень</a></li>
-                    <li class="menu-header__item"><a [routerLink]="['/my-cabinet/change-password']" class="menu-header__link">Зміна паролю</a></li>
-                    <li class="menu-header__item"><a (click)="logout()"  class="menu-header__link">Вихід</a></li>
-                  </ul>
-                </nav>
-              </mat-menu>
-            </ng-container>
-            </div>
-            <div class="header__logOut" *ngIf="isLogin && userRole==='ADMIN'" >
-              <mat-icon class="header-mat" (click)="logout()">exit_to_app</mat-icon>
-             </div> 
-            
-            
-            <!-- basket -->
-              <div class="header__busket busket" [class.active]="basketHeight" (click)="openModalCart()">
-              <div class="busket__box">
-                <img src="assets/images/header/basket.svg" alt="baket">
-                <span class="busket__count" [ngClass]="{'active': showModalCart}">{{orderService.count}}</span>
-              </div>
-              <div class="busket__price">
-                <div class="busket__total">{{ getTotalSum() }}</div>
-                <span>грн</span>
-              </div>
-            </div>
-
+  <div class="header__container">
+     <div class="header__items">
+        <a [routerLink]="[ '/home' ]" class="header__logo"><img src="assets/images/header/logo.svg" alt="logo"></a>
+        <div class="header__menu menu">
+           <nav class="menu__body">
+              <ul class="menu__list">
+                 <li class="menu__item">
+                    <a  [routerLink]="[ '/actions' ]" routerLinkActive="route-active" class="menu__link"><img src="assets/images/header/actions.svg" alt="icon" class="menu__image"><span>Акції</span></a>
+                 </li>
+                 <li class="menu__item">
+                    <a [routerLink]="[ '/product/rolls' ]" routerLinkActive="route-active" class="menu__link"><img src="assets/images/header/rolls.svg" alt="icon" class="menu__image"><span>Роли</span></a>
+                 </li>
+                 <li class="menu__item">
+                    <a [routerLink]="[ '/product/seti' ]" routerLinkActive="route-active" class="menu__link"><img src="assets/images/header/sets.svg" alt="icon" class="menu__image"><span>Сети</span></a>
+                 </li>
+                 <li class="menu__item">
+                    <a [routerLink]="[ '/product/drinks' ]" routerLinkActive="route-active" class="menu__link"><img src="assets/images/header/drinks.svg" alt="icon" class="menu__image"><span>Напої</span></a>
+                 </li>
+                 <li class="menu__item">
+                    <a [routerLink]="[ '/product/souces' ]" routerLinkActive="route-active" class="menu__link"><img src="assets/images/header/souces.svg" alt="icon" class="menu__image"><span>Соуси</span></a>
+                 </li>
+              </ul>
+           </nav>
         </div>
-
-        <!-- Modal busket-->
-
-        <div class="modal__wrapper" [class.active]="showModalCart" (click)="onModalWrapperClick($event)">
-          <div class="modal">
-              <div class="modal__body">
-                <ng-container *ngIf="orderService.basket && orderService.basket.length > 0; else emptyBasket">
-                <ng-container *ngFor="let product of orderService.basket">
-                <div class="modal__products">
-                  <img [src]="product.image" (click)="openModalCart()" [routerLink]="[ '/rolls-details', product.id ]"  alt="image" class="modal__image">
-                    <div class="modal__count">
-                      <h5 class="modal__title" (click)="openModalCart()" [routerLink]="[ '/rolls-details', product.id ]">{{product.name}}</h5>
-                      <div class="modal__box">
-                      <div class="number-input input-number">
-                        <button  (click)="productCount(product, false)" class="input-number__button input-number__minus" type="button">-</button>
-                        <input type="number" class="input-number__inputNumber" min="1" [value]="product.count" readonly >
-                        <button (click)="productCount(product ,true)" class="input-number__button input-number__plus" type="button">+</button>
-                      </div> 
-                      <div class="modal__summa">{{ product.price * product.count }} <span>грн</span></div>
-                      <button class="modal__remove"  (click)="removeProduct(product, $event)"><div class="modal__trash"></div></button>
+        <div class="effect"  (click)="burger()" (clickOutside)="closeBlock()">
+        <div class="menu__icon" [class._active]="show">
+           <span class="span"></span>
+           <div class="menu-header__wrapper" [class.show]="show">
+              <nav>
+                 <ul class="menu-header__nav">
+                    <li class="menu-header__nav-item">
+                       <a [routerLink]="[ '/product/souces' ]" routerLinkActive="route-active" class="menu-header__nav-link">
+                          <img src="assets/images/header/souces.svg" alt="icon" class="menu-header__image">
+                          <div class="souces">Соуси</div>
+                       </a>
+                    </li>
+                 </ul>
+                 <ul class="menu-header__list" >
+                    <li class="menu-header__item"><a [routerLink]="[ '/delivery']" routerLinkActive="route-active" class="menu-header__link">Доставка та оплата</a></li>
+                    <li class="menu-header__item"><a [routerLink]="[ '/about-us']" routerLinkActive="route-active" class="menu-header__link">Про нас</a></li>
+                    <li class="menu-header__item"><a [routerLink]="[ '/actions' ]" routerLinkActive="route-active" class="menu-header__link">Акції</a></li>
+                 </ul>
+                 <ul class="menu-header__info">
+                    <a  href="tel:0978780837" class="menu-header__phone">(097) 878 08 37</a>
+                    <div class="menu-header__time">
+                       Працюємо з 
+                       <b>11:00</b>
+                       до
+                       <b>22:30</b>
                     </div>
+                 </ul>
+                 <div class="menu-header__call">
+                    <button class="menu-header__btn" (click)="openDialog()">
+                       <img src="assets/images/header/phone.svg" alt="phone">
+                       <div class="menu-header__text">МИ ЗАТЕЛЕФОНУЄМО</div>
+                    </button>
+                 </div>
+              </nav>
+           </div>
+        </div>
+     </div>
+     <!-- phone -->
+     <div class="header__call">
+        <button class="header__btn" (click)="openDialog()">
+        <img src="assets/images/header/phone.svg" alt="phone">
+        <span>МИ ЗАТЕЛЕФОНУЄМО</span>
+        </button>
+     </div>
+     <div class="header__info">
+        <a class="header__phone" href="tel:0978780837">(097) 878 08 37</a>
+        <div class="header__time">
+           Працюємо з 
+           <b>11:00</b>
+           до
+           <b>22:30</b>
+        </div>
+     </div>
+     <!-- login -->
+     <div class="header__userGuest" (click)="openModalLogin()" *ngIf="!isLogin">
+     <a class="header__admin"><img src="assets/images/header/user.svg" alt="user"></a>
+  </div>
+  <div class="header__user" *ngIf="isLogin" >
+     <mat-icon class="header-mat"  *ngIf="userRole==='ADMIN'" [routerLink]="[ '/'+loginUrl ]">home</mat-icon> 
+     <ng-container *ngIf="userRole === 'USER'">
+        <mat-icon class="header-mat"  [matMenuTriggerFor]="menu">home</mat-icon>
+        <mat-menu #menu="matMenu"  class="header__user-matMenu" >
+           <nav class="header__user-nav">
+              <ul class="menu-header__list-user">
+                 <li class="menu-header__item"><a [routerLink]="['/my-cabinet/user']" class="menu-header__link">Особистий кабінет</a></li>
+                 <li class="menu-header__item"><a [routerLink]="['/my-cabinet/order-history']"  class="menu-header__link">Історія замовлень</a></li>
+                 <li class="menu-header__item"><a [routerLink]="['/my-cabinet/change-password']" class="menu-header__link">Зміна паролю</a></li>
+                 <li class="menu-header__item"><a (click)="logout()"  class="menu-header__link">Вихід</a></li>
+              </ul>
+           </nav>
+        </mat-menu>
+     </ng-container>
+  </div>
+  <div class="header__logOut" *ngIf="isLogin && userRole==='ADMIN'" >
+     <mat-icon class="header-mat" (click)="logout()">exit_to_app</mat-icon>
+  </div>
+  <div class="header__busket busket" [class.active]="basketHeight" (click)="openModalCart()">
+  <div class="busket__box">
+     <img src="assets/images/header/basket.svg" alt="baket">
+     <span class="busket__count" [ngClass]="{'active': showModalCart}">{{orderService.count}}</span>
+  </div>
+  <div class="busket__price">
+     <div class="busket__total">{{ getTotalSum() }}</div>
+     <span>грн</span>
+  </div>
+  </div>
+  <div class="modal__wrapper" [class.active]="showModalCart" (click)="onModalWrapperClick($event)">
+  <div class="modal">
+     <div class="modal__body">
+        <ng-container *ngIf="orderService.basket && orderService.basket.length > 0; else emptyBasket">
+           <ng-container *ngFor="let product of orderService.basket">
+              <div class="modal__products">
+                 <img [src]="product.image" (click)="openModalCart()" [routerLink]="[ '/rolls-details', product.id ]"  alt="image" class="modal__image">
+                 <div class="modal__count">
+                    <h5 class="modal__title" (click)="openModalCart()" [routerLink]="[ '/rolls-details', product.id ]">{{product.name}}</h5>
+                    <div class="modal__box">
+                       <div class="number-input input-number">
+                          <button  (click)="productCount(product, false)" class="input-number__button input-number__minus" type="button">-</button>
+                          <input type="number" class="input-number__inputNumber" min="1" [value]="product.count" readonly >
+                          <button (click)="productCount(product ,true)" class="input-number__button input-number__plus" type="button">+</button>
+                       </div>
+                       <div class="modal__summa">{{ product.price * product.count }} <span>грн</span></div>
+                       <button class="modal__remove"  (click)="removeProduct(product, $event)">
+                          <div class="modal__trash"></div>
+                       </button>
                     </div>
-                </div>
-              </ng-container>
-            </ng-container>
-            <ng-template #emptyBasket>
-              <div class="modal__empty-box">
+                 </div>
+              </div>
+           </ng-container>
+        </ng-container>
+        <ng-template #emptyBasket>
+           <div class="modal__empty-box">
               <img class="modal__empty-image" src="assets/images/header/cart-empty-img.svg" alt="img">
               <div class="modal__empty">Кошик порожній</div>
               <a  (click)="navigateToCatalog()"  class="modal__empty-btn">ПЕРЕЙТИ ДО КАТАЛОГУ</a>
-            </div>
-            </ng-template>
-              </div>
-              <div class="modal__bottom bottom-bg">
-                <div class="modal__total"><span> Сумма:</span> {{ getTotalSum() }} <span>грн</span></div>
-
-                <button class="modal__submit" [disabled]="!orderService.basket || orderService.basket.length === 0" (click)="closeBusket()" [routerLink]="[ '/checkout' ]">ОФОРМИТИ ЗАМОВЛЕННЯ</button>
-              </div>
-          </div>
-        </div>
-    
+           </div>
+        </ng-template>
+     </div>
+     <div class="modal__bottom bottom-bg">
+        <div class="modal__total"><span> Сумма:</span> {{ getTotalSum() }} <span>грн</span></div>
+        <button class="modal__submit" [disabled]="!orderService.basket || orderService.basket.length === 0" (click)="closeBusket()" [routerLink]="[ '/checkout' ]">ОФОРМИТИ ЗАМОВЛЕННЯ</button>
+     </div>
+  </div>
+  </div>
+  </div>
+  </div>
 </header>
+
 <div class="header-layer" [class.active]="layerBig"></div>
 <div class="header-mobile-layer" [class.active]="layer"></div>
-
-

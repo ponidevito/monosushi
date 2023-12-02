@@ -86,6 +86,27 @@ export class AdminGoodsComponent implements OnInit {
   }
 
   // add product
+  // addGoods(): void {
+  //   if (this.editStatus) {
+  //     this.GoodsService.updateFirebase(
+  //       this.goodsForm.value,
+  //       this.currentGoodsId as string
+  //     ).then(() => {
+  //       this.loadCategories();
+  //       this.toastService.success('Продукт відредагований');
+  //     });
+  //   } else {
+  //     this.GoodsService.createFirebase(this.goodsForm.value).then(() => {
+  //       this.toastService.success('Продукт доданий!');
+  //     });
+  //   }
+  //   this.editStatus = false;
+  //   this.goodsForm.reset();
+  //   this.isUploaded = false;
+  //   this.uploadPercent = 0;
+  //   this.showForm = false;
+  // }
+
   addGoods(): void {
     if (this.editStatus) {
       this.GoodsService.updateFirebase(
@@ -96,15 +117,27 @@ export class AdminGoodsComponent implements OnInit {
         this.toastService.success('Продукт відредагований');
       });
     } else {
+      // Додайте замовчування кількості, якщо це новий товар
+      this.goodsForm.get('count')?.setValue(1);
+  
       this.GoodsService.createFirebase(this.goodsForm.value).then(() => {
         this.toastService.success('Продукт доданий!');
       });
     }
     this.editStatus = false;
-    this.goodsForm.reset();
     this.isUploaded = false;
     this.uploadPercent = 0;
     this.showForm = false;
+    this.resetForm()
+  }
+  
+
+  resetForm(): void {
+    this.goodsForm.reset();
+    this.goodsForm.patchValue({
+      category: this.adminCategories.length > 0 ? this.adminCategories[0] : null,
+      // Додайте інші значення за замовчуванням, якщо потрібно
+    });
   }
 
   openEdit(): void {
